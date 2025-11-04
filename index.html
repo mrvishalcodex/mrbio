@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mr Vishal - Enchanted Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #8a2be2;
+      --secondary: #00c6ff;
+      --accent: #ff00ff;
+      --dark: #0a0a1a;
+      --light: #f0f8ff;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: var(--light);
+      overflow-x: hidden;
+      background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 50%, #16213e 100%);
+    }
+
+    .magic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background: radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(0, 198, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 5s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .floating-element {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 2rem;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px 20px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 40px 30px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+      animation: fadeIn 1.5s ease forwards;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                  0 0 30px rgba(138, 43, 226, 0.2),
+                  inset 0 0 20px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      transform: rotate(30deg);
+      z-index: -1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-pic-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--light);
+      box-shadow: 0 0 25px var(--primary);
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px var(--accent);
+    }
+
+    .profile-pic-container::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      z-index: 0;
+      animation: rotate 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .tagline {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+      color: #d0d0ff;
+      font-weight: 300;
+      position: relative;
+      display: inline-block;
+    }
+
+    .tagline::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--secondary), transparent);
+    }
+
+    .info-box {
+      text-align: left;
+      margin-top: 30px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      border-left: 3px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .info-box:hover {
+      transform: translateX(5px);
+      border-left: 3px solid var(--accent);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-box h2 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-box h2 i {
+      color: var(--accent);
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+
+    .info-box ul li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-box ul li::before {
+      content: "›";
+      color: var(--accent);
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .skill-tag {
+      background: rgba(138, 43, 226, 0.2);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: rgba(0, 198, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .telegram-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.1em;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .telegram-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .telegram-btn:hover::before {
+      left: 100%;
+    }
+
+    .telegram-btn:hover {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 198, 255, 0.6);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      font-size: 1.4em;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #8a2be2, #00c6ff, #ff00ff, #8a2be2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-link i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-link:hover::before {
+      opacity: 1;
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    }
+
+    .social-link.github:hover {
+      color: #333;
+    }
+
+    .social-link.instagram:hover {
+      color: #E1306C;
+    }
+
+    .social-link.youtube:hover {
+      color: #FF0000;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .card {
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 2.2em;
+      }
+      
+      .profile-pic {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .social-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 40px 15px;
+      }
+      
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .info-box {
+        padding: 15px;
+      }
+      
+      .social-links {
+        gap: 15px;
+      }
+      
+      .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Magical Background Elements -->
+  <div class="magic-bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="floating-elements" id="floatingElements"></div>
+
+  <!-- Content -->
+  <div class="container">
+    <div class="card">
+      <div class="profile-pic-container">
+        <img src="https://i.pravatar.cc/300?img=32" alt="Mr Vishal" class="profile-pic" />
+      </div>
+      <h1>Mr Vishal</h1>
+      <p class="tagline">Coding Magician & Digital Dreamweaver</p>
+      <p>Hi! I'm VISHAL — a creative tech lover building bots, websites, and Telegram tools. I'm the owner of TECHXCODEX / @techxcodex Channel, where magic meets code!</p>
+
+      <div class="info-box">
+        <h2><i class="fas fa-user"></i> About Me</h2>
+        <ul>
+          <li><strong>Country:</strong> India</li>
+          <li><strong>Age:</strong> 16</li>
+          <li><strong>School:</strong> High School</li>
+          <li><strong>Hobbies:</strong> Coding, Gaming, Designing</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <h2><i class="fas fa-code"></i> Skills</h2>
+        <div class="skills-container">
+          <span class="skill-tag">PHP & Python Bots</span>
+          <span class="skill-tag">HTML, CSS, JS</span>
+          <span class="skill-tag">Telegram Bot Development</span>
+          <span class="skill-tag">Web UI/UX Design</span>
+          <span class="skill-tag">Automation Systems</span>
+        </div>
+      </div>
+
+      <a href="https://t.me/techxcodex" class="telegram-btn" target="_blank">
+        <i class="fab fa-telegram"></i> Join My Telegram
+      </a>
+
+      <div class="social-links">
+        <a href="#" class="social-link github" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="social-link instagram" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link youtube" title="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+    </div>
+
+    <footer>© 2025 Mr Vishal. All rights reserved. | Crafted with magic & code</footer>
+  </div>
+
+  <script>
+    // Create stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = `${Math.random() * 3}px`;
+      star.style.height = star.style.width;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      starsContainer.appendChild(star);
+    }
+
+    // Create floating elements
+    const floatingContainer = document.getElementById('floatingElements');
+    const symbols = ['{ }', '</>', '()', ';;', '[]', '/*', '*/', '=>', '==', '!=', '&&', '||'];
+    
+    for (let i = 0; i < 25; i++) {
+      const element = document.createElement('div');
+      element.classList.add('floating-element');
+      element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      element.style.left = `${Math.random() * 100}%`;
+      element.style.animationDelay = `${Math.random() * 15}s`;
+      element.style.fontSize = `${Math.random() * 1 + 1.5}rem`;
+      element.style.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, ${Math.random() * 0.2 + 0.1})`;
+      floatingContainer.appendChild(element);
+    }
+
+    // Add subtle mouse move effect
+    document.addEventListener('mousemove', (e) => {
+      const card = document.querySelector('.card');
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+  </script>
+</body>
+</html>
